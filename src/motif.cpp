@@ -336,19 +336,17 @@ int Motif::positions_available(const vector<bool>& possible) const {
 	return ret;
 }
 
-void Motif::columns_open(int &l, int &r){
+void Motif::columns_open(int &l, int &r) {
 	int w = width;
 	int c, p, len;
-	bool s;
 	vector<Site>::iterator site_iter;
-  for(site_iter = sitelist.begin(); site_iter != sitelist.end(); ++site_iter) {
-    c = site_iter->chrom();
-    p = site_iter->posit();
-    s = site_iter->strand();
+	for(site_iter = sitelist.begin(); site_iter != sitelist.end(); ++site_iter) {
+		c = site_iter->chrom();
+		p = site_iter->posit();
 		len = seqset.len_seq(c);
 		l = min(p, l);
 		r = min(len - p - w, r);
-  }
+	}
 }
 
 void Motif::freq_matrix_extended(double *fm) const{
@@ -498,7 +496,6 @@ void Motif::write(ostream& motout) const {
 }
 
 void Motif::read(istream& motin) {
-	char* match;
 	char line[200];
 	vector<int> c;
 	vector<int> p;
@@ -508,7 +505,7 @@ void Motif::read(istream& motin) {
 	// (don't add yet, as they will get screwed up by the column changes)
 	while(motin.getline(line, 200)) {
 		if(line[0] == '*') break;
-		match = strtok(line, "\t");
+		strtok(line, "\t");
 		c.push_back(atoi(strtok(NULL, "\t")));
 		p.push_back(atoi(strtok(NULL, "\t")));
 		s.push_back(atoi(strtok(NULL, "\0")));
@@ -528,35 +525,34 @@ void Motif::read(istream& motin) {
 		add_site(c[i], p[i], s[i]);
 	}
 	
-	char* heading;
 	// Read MAP score
 	motin.getline(line, 200);
-	heading = strtok(line, ":");
+	strtok(line, ":");
 	set_map(atof(strtok(NULL, "\0")));
 	
 	// Read specificity
 	motin.getline(line, 200);
-	heading = strtok(line, ":");
+	strtok(line, ":");
 	set_spec(atof(strtok(NULL, "\0")));
 	
 	// Read sequence cutoff
 	motin.getline(line, 200);
-	heading = strtok(line, ":");
+	strtok(line, ":");
 	set_seq_cutoff(atof(strtok(NULL, "\0")));
 	
 	// Read expression cutoff
 	motin.getline(line, 200);
-	heading = strtok(line, ":");
+	strtok(line, ":");
 	set_expr_cutoff(atof(strtok(NULL, "\0")));
 	
 	// Read iteration found
 	motin.getline(line, 200);
-	heading = strtok(line, ":");
+	strtok(line, ":");
 	set_iter(strtok(NULL, "\0"));
 	
 	// Read dejavu
 	motin.getline(line, 200);
-	heading = strtok(line, ":");
+	strtok(line, ":");
 	set_dejavu(atoi(strtok(NULL, "\0")));
 }
 

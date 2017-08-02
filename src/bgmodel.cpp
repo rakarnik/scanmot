@@ -10,18 +10,16 @@ cbgscores(seqset.num_seqs()) {
 	const vector<vector <int> > ss_seq = seqset.seq();
 	int ss_num_seqs = seqset.num_seqs();
 	
-	int len;
 	for(int i = 0; i < ss_num_seqs; i++) {
-		len = 0;
-    for(int j = 0; j < seqset.len_seq(i); j++) {
-      if(ss_seq[i][j] == 1 || ss_seq[i][j] == 2)
+		for(int j = 0; j < seqset.len_seq(i); j++) {
+			if(ss_seq[i][j] == 1 || ss_seq[i][j] == 2)
 				gc_genome++;
 			if(ss_seq[i][j] != -1)
 				total_seq_len++;
-    }
-  }
+		}
+	}
 	gc_genome /= total_seq_len;
-	
+
 	train_background();
 	calc_bg_scores();
 }
