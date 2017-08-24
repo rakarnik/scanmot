@@ -24,6 +24,18 @@ cbgscores(seqset.num_seqs()) {
 	calc_bg_scores();
 }
 
+BGModel::BGModel(const Seqset& s, const float gc) :
+seqset(s),
+total_seq_len(0),
+gc_genome(gc),
+model(4),
+wbgscores(seqset.num_seqs()),
+cbgscores(seqset.num_seqs()) {
+	const vector<vector <int> > ss_seq = seqset.seq();
+	train_background();
+	calc_bg_scores();
+}
+
 double BGModel::score_site(const Motif& motif, const int c, const int p, const bool s) const {
 	double L = 0.0;
 	int width = motif.get_width();

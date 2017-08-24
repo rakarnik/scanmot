@@ -17,7 +17,7 @@ int main(int argc, const char* argv[]) {
 	vector<string> seqs, nameset;
 	get_fasta_fast(seq_file.c_str(), seqs, nameset, 12);
 	Seqset scan_sseq(seqs);
-	BGModel bgm(scan_sseq);
+	BGModel bgm(scan_sseq, 0.5);
 
 	// Read motif from ACE file
 	vector<string> hits;
