@@ -1,29 +1,5 @@
 #include "bgmodel.h"
 
-BGModel::BGModel(const Seqset& s) :
-seqset(s),
-total_seq_len(0),
-gc_genome(0),
-model(4),
-wbgscores(seqset.num_seqs()),
-cbgscores(seqset.num_seqs()) {
-	const vector<vector <int> > ss_seq = seqset.seq();
-	int ss_num_seqs = seqset.num_seqs();
-	
-	for(int i = 0; i < ss_num_seqs; i++) {
-		for(int j = 0; j < seqset.len_seq(i); j++) {
-			if(ss_seq[i][j] == 1 || ss_seq[i][j] == 2)
-				gc_genome++;
-			if(ss_seq[i][j] != -1)
-				total_seq_len++;
-		}
-	}
-	gc_genome /= total_seq_len;
-
-	train_background();
-	calc_bg_scores();
-}
-
 BGModel::BGModel(const Seqset& s, const float gc) :
 seqset(s),
 total_seq_len(0),
@@ -124,3 +100,6 @@ void BGModel::print_model(ofstream& out) {
 	}
 	out << "\n\n";
 }
+
+
+

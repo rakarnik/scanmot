@@ -18,7 +18,6 @@ class BGModel {
 	void calc_bg_scores();                                       // Calculate scores using 0th order background model
 
 public:
-	BGModel(const Seqset& s);
 	BGModel(const Seqset& s, const float gc);
 	float tot_seq_len() const { return total_seq_len; }           // Return total length of all sequences
 	float gcgenome() const { return gc_genome; }                  // Return overall GC content
